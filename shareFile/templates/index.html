@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Home Page{% endblock %}
+{% block body %}
+<!--Posts -->
+{% for post in posts %}
+<div class="container my-4 alert alert-success"> 
+    <div class="card">
+        <h5 class="card-header">By <a style="text-decoration:none; color:#DC3545;" href="{% url 'profile' post.user.username %}">{{post.user}}</a></h5>
+        <div class="card-body">
+            <h5 class="card-title">{{post.title}}</h5>
+            <p class="card-text">{{post.desc}}</p>
+
+            {% if request.session.user %}
+                <!-- <a href="{{MEDIA_URL}}/{{post.file_field.url}}" class="btn btn-warning" target="_blank">View</a>
+                <a href="{{MEDIA_URL}}/{{post.file_field.url}}" class="btn btn-info mx-4" download>Download</a>  -->
+                  <a href="{{post.file_field.url}}" target="_blank" class="btn btn-outline-warning">View</a>
+                  <a href="{{post.file_field.url}}" download class="btn btn-outline-info" download>Download</a>
+            {% else %}
+                <a href="#">You Have To Login Before Download this File.</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}
